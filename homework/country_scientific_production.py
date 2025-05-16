@@ -27,6 +27,7 @@ def remove_na_rows(affiliations):
 
     return affiliations
 
+
 def add_countries_column(affiliations):
     """Transforma la columna 'Affiliations' a una lista de paises."""
 
@@ -44,24 +45,6 @@ def add_countries_column(affiliations):
 
     return affiliations
 
-
-def clean_countries(affiliations):
-
-    affiliations = affiliations.copy()
-    affiliations["countries"] = affiliations["countries"].str.replace(
-        "United States", "United States of America"
-    )
-    return affiliations
-
-
-def count_country_frequency(affiliations):
-    """Cuenta la frecuencia de cada país en la columna 'countries'"""
-
-    countries = affiliations["countries"].copy()
-    countries = countries.str.split(", ")
-    countries = countries.explode()
-    countries = countries.value_counts()
-    return countries
 
 def plot_world_map(countries):
     """Grafica un mapa mundial con la frecuencia de cada país."""
@@ -86,6 +69,25 @@ def plot_world_map(countries):
     m.save("files/map.html")
 
 
+def clean_countries(affiliations):
+
+    affiliations = affiliations.copy()
+    affiliations["countries"] = affiliations["countries"].str.replace(
+        "United States", "United States of America"
+    )
+    return affiliations
+
+
+def count_country_frequency(affiliations):
+    """Cuenta la frecuencia de cada país en la columna 'countries'"""
+
+    countries = affiliations["countries"].copy()
+    countries = countries.str.split(", ")
+    countries = countries.explode()
+    countries = countries.value_counts()
+    return countries
+
+
 def make_worldmap():
     """Función principal"""
 
@@ -102,8 +104,5 @@ def make_worldmap():
     plot_world_map(countries) 
 
 
-
 if __name__ == "__main__":
     make_worldmap()
-
-
